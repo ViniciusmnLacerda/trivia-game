@@ -1,0 +1,7 @@
+.correct-asnwer {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.wrong-asnwer {
+  border: 3px solid red;
+}
