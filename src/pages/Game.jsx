@@ -7,7 +7,8 @@ import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Timer from '../components/Timer';
 import {
-  resetTimerAction, stopTimer, stopWatch, totalAssertions, totalScore, wasAnsweredAction
+  nextQuestion, resetTimerAction, stopTimer, stopWatch,
+  totalAssertions, totalScore, wasAnsweredAction
 } from '../redux/actions';
 import fetchTrivia from '../services/fetchTrivia';
 import '../Styles/Game.css';
@@ -25,7 +26,10 @@ class Game extends Component {
 
   async componentDidMount() {
     const { triviaIndex } = this.state;
-    const triviaResponse = await fetchTrivia();
+    const {
+      numberOfQuestions, category, difficulty, type,
+    } = this.props;
+    const triviaResponse = await fetchTrivia(numberOfQuestions, category, difficulty, type);
     if (triviaResponse.length === 0) {
       this.setState({ isRedirect: true });
     }
@@ -79,8 +83,8 @@ class Game extends Component {
 
   randomAnswers = () => {
     const { trivia, triviaIndex } = this.state;
-    const TOTAL_QUESTIONS = 5;
-    if (triviaIndex < TOTAL_QUESTIONS) {
+    const { numberOfQuestions } = this.props;
+    if (triviaIndex < numberOfQuestions) {
       const {
         correct_answer: correctAnswer, incorrect_answers: incorrectAnswers,
       } = trivia[triviaIndex];
@@ -107,8 +111,8 @@ class Game extends Component {
 
   renderQuestions = () => {
     const { trivia, triviaIndex, toRender } = this.state;
-    const TOTAL_QUESTIONS = 5;
-    if (triviaIndex < TOTAL_QUESTIONS) {
+    const { numberOfQuestions } = this.props;
+    if (triviaIndex < numberOfQuestions) {
       const { question, category } = trivia[triviaIndex];
       const { endOfTime, wasAnswered } = this.props;
       return (
@@ -159,22 +163,10 @@ class Game extends Component {
   };
 
   handleClickButtonNext = () => {
-    const { dispatch } = this.props;
+    const { dispatch, numberOfQuestions } = this.props;
     let { triviaIndex } = this.state;
     const timer = 30;
-    const TOTAL_QUESTION = 5;
-    const LAST_QUESTION = 5;
-    if (triviaIndex < TOTAL_QUESTION) {
-      triviaIndex += 1;
-      this.setState({
-        triviaIndex,
-      }, () => {
-        dispatch(wasAnsweredAction());
-        dispatch(resetTimerAction());
-        dispatch(stopTimer());
-        dispatch(stopWatch(timer));
-      });
-    } if (triviaIndex === LAST_QUESTION) {
+    if (triviaIndex === numberOfQuestions - 1) {
       const {
         history, name, score, image,
       } = this.props;
@@ -189,11 +181,23 @@ class Game extends Component {
       }
       history.push('/feedback');
     }
+    if (triviaIndex < numberOfQuestions) {
+      triviaIndex += 1;
+      this.setState({
+        triviaIndex,
+      }, () => {
+        dispatch(wasAnsweredAction());
+        dispatch(resetTimerAction());
+        dispatch(stopTimer());
+        dispatch(stopWatch(timer));
+        dispatch(nextQuestion());
+      });
+    }
   };
 
   render() {
-    const { isRedirect, trivia } = this.state;
-    const { wasAnswered } = this.props;
+    const { isRedirect, trivia, triviaIndex } = this.state;
+    const { wasAnswered, endOfTime } = this.props;
     if (isRedirect) {
       return <Redirect to="/" />;
     }
@@ -202,6 +206,7 @@ class Game extends Component {
         <div>
           <header>
             <Header />
+            <p>{`Questão ${triviaIndex + 1}`}</p>
           </header>
           {trivia.length > 0 && (
             <div className="trivia-container">
@@ -210,17 +215,15 @@ class Game extends Component {
           )}
         </div>
         <div>
-          {
-            wasAnswered && (
-              <button
-                type="button"
-                data-testid="btn-next"
-                onClick={this.handleClickButtonNext}
-              >
-                Next
-              </button>
-            )
-          }
+          {(wasAnswered || endOfTime) && (
+          <button
+            type="button"
+            data-testid="btn-next"
+            onClick={this.handleClickButtonNext}
+          >
+            Next
+          </button>
+          )}
         </div>
         <Timer />
       </div>
@@ -235,6 +238,10 @@ const mapStateToProps = (state) => ({
   score: state.player.score,
   name: state.player.name,
   image: state.player.image,
+  numberOfQuestions: state.setup.numberOfQuestions,
+  category: state.setup.category,
+  difficulty: state.setup.difficulty,
+  type: state.setup.type,
 });
 
 Game.propTypes = {
@@ -248,6 +255,10 @@ Game.propTypes = {
   score: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  numberOfQuestions: PropTypes.number.isRequired,
+  category: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Game);

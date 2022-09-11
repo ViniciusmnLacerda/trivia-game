@@ -9,6 +9,7 @@ export const RESET_TIMER = 'RESET_TIMER';
 export const SET_IMAGE = 'SET_IMAGE';
 export const RESET_GAME = 'RESET_GAME';
 export const SET_UP = 'SET_UP';
+export const NEXT_QUESTION = 'NEXT_QUESTION';
 
 export function login(payload) {
   return { type: LOGIN, payload };
@@ -20,6 +21,10 @@ export function setUp(payload) {
 
 export function endTime() {
   return { type: END_TIME };
+}
+
+export function nextQuestion() {
+  return { type: NEXT_QUESTION };
 }
 
 export function stopWatch(timer) {

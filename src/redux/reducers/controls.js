@@ -1,9 +1,7 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable default-param-last */
 import {
-  END_TIME,
-  MY_TIMER,
-  RESET_GAME,
+  END_TIME, MY_TIMER, NEXT_QUESTION, RESET_GAME,
   RESET_TIMER,
   STOP_TIMER,
   WAS_ANSWERED
@@ -33,6 +31,13 @@ function controls(state = INITIAL_STATE, action) {
       return {
         ...state,
         endOfTime: true,
+      };
+    case NEXT_QUESTION:
+      return {
+        ...state,
+        endOfTime: false,
+        wasAnswered: false,
+        stopTimer: false,
       };
     case RESET_TIMER:
       return {

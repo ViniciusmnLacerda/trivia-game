@@ -33,9 +33,6 @@ class Config extends Component {
   };
 
   handleClick = () => {
-    const {
-      numberOfQuestions, category, difficulty, type,
-    } = this.state;
     const { dispatch, history } = this.props;
     dispatch(setUp({ ...this.state }));
     history.push('/');

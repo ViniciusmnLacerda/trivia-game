@@ -1,8 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable class-methods-use-this */
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
+import { resetGame } from '../redux/actions';
 
 class Ranking extends Component {
   constructor() {
@@ -13,7 +16,10 @@ class Ranking extends Component {
   }
 
   handleClick = () => {
-    this.setState({ isRedirect: true });
+    const { dispatch } = this.props;
+    this.setState({ isRedirect: true }, () => {
+      dispatch(resetGame());
+    });
   };
 
   renderRankingList = () => {
@@ -62,4 +68,8 @@ class Ranking extends Component {
   }
 }
 
-export default Ranking;
+Ranking.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect()(Ranking);
