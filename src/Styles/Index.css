@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-color);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+:root {
+  --bg-color: #484450;
+  --primary: #466067;
+  --secondary: #459a96;
+  --bg-badge: #34baab;
+  --font-color: #c4c8c5;
+}
