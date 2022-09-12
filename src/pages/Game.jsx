@@ -135,7 +135,7 @@ class Game extends Component {
               <div data-testid="answer-options" key={answer}>
                 {type === 'correct' ? (
                   <button
-                    disabled={endOfTime}
+                    disabled={endOfTime || wasAnswered}
                     data-testid="correct-answer"
                     type="button"
                     className={wasAnswered ? 'correct-asnwer' : undefined}
@@ -145,7 +145,7 @@ class Game extends Component {
                   </button>
                 ) : (
                   <button
-                    disabled={endOfTime}
+                    disabled={endOfTime || wasAnswered}
                     data-testid={`wrong-answer-${index}`}
                     type="button"
                     className={wasAnswered ? 'wrong-asnwer' : undefined}
