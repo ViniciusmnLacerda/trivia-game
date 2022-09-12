@@ -49,6 +49,12 @@ class Game extends Component {
     }
   }
 
+  decodeEntity = (inputStr) => {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = inputStr;
+    return textarea.value;
+  };
+
   handleDifficulty = (difficulty) => {
     const EASY_SCORE = 1;
     const MEDIUM_SCORE = 2;
@@ -116,47 +122,52 @@ class Game extends Component {
       const { question, category } = trivia[triviaIndex];
       const { endOfTime, wasAnswered } = this.props;
       return (
-        <div>
-          <p
-            data-testid="question-category"
-            className="trivia-category"
-          >
-            {category}
-          </p>
-          <p
-            data-testid="question-text"
-            className="trivia-question"
-          >
-            {question}
-          </p>
-          {toRender.map((element, index) => {
-            const { answer, type } = element;
-            return (
-              <div data-testid="answer-options" key={answer}>
-                {type === 'correct' ? (
-                  <button
-                    disabled={endOfTime || wasAnswered}
-                    data-testid="correct-answer"
-                    type="button"
-                    className={wasAnswered ? 'correct-asnwer' : undefined}
-                    onClick={() => this.handleClick(type)}
-                  >
-                    {answer}
-                  </button>
-                ) : (
-                  <button
-                    disabled={endOfTime || wasAnswered}
-                    data-testid={`wrong-answer-${index}`}
-                    type="button"
-                    className={wasAnswered ? 'wrong-asnwer' : undefined}
-                    onClick={() => this.handleClick(type)}
-                  >
-                    {answer}
-                  </button>
-                )}
-              </div>
-            );
-          })}
+        <div className="game-main">
+          <div className="game-text">
+            <p className="counter">{`Question ${triviaIndex + 1}/${numberOfQuestions}`}</p>
+            <h3
+              data-testid="question-category"
+              className="trivia-category"
+            >
+              {this.decodeEntity(category)}
+            </h3>
+            <p
+              data-testid="question-text"
+              className="trivia-question"
+            >
+              {this.decodeEntity(question)}
+            </p>
+          </div>
+          <div className="options-container">
+            {toRender.map((element, index) => {
+              const { answer, type } = element;
+              return (
+                <div className="button-container" data-testid="answer-options" key={answer}>
+                  {type === 'correct' ? (
+                    <button
+                      disabled={endOfTime || wasAnswered}
+                      data-testid="correct-answer"
+                      type="button"
+                      className={wasAnswered ? 'correct-asnwer' : undefined}
+                      onClick={() => this.handleClick(type)}
+                    >
+                      {this.decodeEntity(answer)}
+                    </button>
+                  ) : (
+                    <button
+                      disabled={endOfTime || wasAnswered}
+                      data-testid={`wrong-answer-${index}`}
+                      type="button"
+                      className={wasAnswered ? 'wrong-asnwer' : undefined}
+                      onClick={() => this.handleClick(type)}
+                    >
+                      {this.decodeEntity(answer)}
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       );
     }
@@ -197,35 +208,40 @@ class Game extends Component {
 
   render() {
     const { isRedirect, trivia, triviaIndex } = this.state;
-    const { wasAnswered, endOfTime } = this.props;
+    const {
+      wasAnswered, endOfTime, score, numberOfQuestions, assertions,
+    } = this.props;
     if (isRedirect) {
       return <Redirect to="/" />;
     }
     return (
-      <div className="container">
-        <div>
-          <header>
-            <Header />
-            <p>{`Questão ${triviaIndex + 1}`}</p>
-          </header>
-          {trivia.length > 0 && (
-            <div className="trivia-container">
-              {this.renderQuestions()}
+      <div className="game-container">
+        <Header />
+        <div className="game-content">
+          <div className="question-card">
+            {trivia.length > 0 && (
+              <div className="trivia-container">
+                {this.renderQuestions()}
+              </div>
+            )}
+            <div>
+              {(wasAnswered || endOfTime) && (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={this.handleClickButtonNext}
+              >
+                Next
+              </button>
+              )}
             </div>
-          )}
+            <Timer />
+          </div>
+          <div className="game-sidecard">
+            <p>{`Score: ${score}`}</p>
+            <p>{`Assertions: ${assertions}`}</p>
+          </div>
         </div>
-        <div>
-          {(wasAnswered || endOfTime) && (
-          <button
-            type="button"
-            data-testid="btn-next"
-            onClick={this.handleClickButtonNext}
-          >
-            Next
-          </button>
-          )}
-        </div>
-        <Timer />
       </div>
     );
   }
@@ -242,6 +258,7 @@ const mapStateToProps = (state) => ({
   category: state.setup.category,
   difficulty: state.setup.difficulty,
   type: state.setup.type,
+  assertions: state.player.assertions,
 });
 
 Game.propTypes = {
@@ -259,6 +276,7 @@ Game.propTypes = {
   category: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
+  assertions: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Game);
