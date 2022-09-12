@@ -1,4 +1,4 @@
-.login-container {
+.settings-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -6,72 +6,66 @@
   justify-content: center;
 }
 
-.card-login {
-  width: 25%;
+.settings-card {
+  width: 80%;
   height: 60%;
   background-color: var(--primary);
   border-radius: 20px;
   box-shadow: .5px 10px 15px rgba(0, 0, 0, .2);
-  max-width: 330px;
-  min-width: 290px;
-  min-height: 450px;
+  max-width: 650px;
 }
 
-.card-login-title {
+.settings-title {
   width: 100%;
-  height: 100px;
+  height: 70px;
+  background-color: var(--secondary);
+  border-radius: 20px 20px 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--secondary);
-  border-radius: 20px 20px 0 0;
 }
 
-.card-login-title h1 {
+.settings-title h1 {
   color: #fff;
   letter-spacing: 2px;
+  font-weight: 600;
 }
 
-.card-login-title h1 span {
-  color: var(--primary);
-}
-
-.card-login-title h1::after {
-  content: '';
+.settings-content {
   width: 100%;
-  height: 3px;
-  display: block;
-  background-color: var(--primary);
+  height: calc(100% - 70px);
 }
 
-.card-login-content {
+.settings-content form {
   width: 100%;
-  height: calc(100% - 100px);
-  padding: 20px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-}
-.card-login-title h1 span {
-  color: var(--primary);
+  padding: 20px;
 }
 
-.card-login-input {
+.settings-inputs {
   width: 100%;
-  height: 20%;
-}
-
-.card-login-input label {
+  height: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+.settings-content form label {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
   color: var(--font-color);
   letter-spacing: 1px;
   font-size: 18px;
 }
 
-.card-login-input label input {
+.settings-content form label input, .settings-content form label select {
   width: 100%;
-  height: 30px;
+  height: 50%;
   border: 0px solid transparent;
   border-radius: 0;
   border-bottom: 1px solid #aaa;
@@ -80,18 +74,24 @@
   font-size: 13px;
   padding-left: 10px;
   letter-spacing: 1px;
+  border-radius: 5px;
 }
 
-.btns-login {
+.settings-content form label input:focus, .settings-content form label select:focus {
+  box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+  border-radius: 5px;
+}
+
+.container-btn {
   width: 100%;
-  height: 80px;
+  height: 30%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-evenly;
 }
 
-.btns-login button{
-  width: 30%;
+.save-btn{
+  width: 120px;
   height: 30px;
   border-radius: 5px;
   transition: all .5s ease;
@@ -99,24 +99,12 @@
   font-weight: 600;
   background-color: #fff;
   border: 1px solid var(--bg-color);
-  margin-top: 1.5em;
-  margin-bottom: 1em;
   cursor: pointer;
 }
 
-.settings-btn:hover {
+.save-btn:hover {
   background-color: var(--bg-color);
   color: var(--font-color);
   border: 1px solid black;
 }
 
-.play-btn:not(:disabled):hover {
-  background-color: var(--bg-color);
-  color: var(--font-color);
-  border: 1px solid black;
-}
-
-.play-btn:disabled {
-  opacity: .3;
-  cursor: progress;
-}

@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { login } from '../redux/actions';
 import fetchToken from '../services/fetchToken';
-import '../Styles/Login.css';
+import '../styles/Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -56,7 +56,7 @@ class Login extends React.Component {
             </h1>
           </div>
           <form className="card-login-content">
-            <div className="card-login-input">
+            <div className="login-inputs">
               <label htmlFor="name">
                 Name
                 <input
@@ -69,8 +69,6 @@ class Login extends React.Component {
                   onChange={this.handleChange}
                 />
               </label>
-            </div>
-            <div className="card-login-input">
               <label htmlFor="email">
                 Email
                 <input

@@ -11,7 +11,7 @@ import {
   totalAssertions, totalScore, wasAnsweredAction
 } from '../redux/actions';
 import fetchTrivia from '../services/fetchTrivia';
-import '../Styles/Game.css';
+import '../styles/Game.css';
 
 class Game extends Component {
   constructor() {
