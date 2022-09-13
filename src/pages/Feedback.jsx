@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { BiCheck } from 'react-icons/bi';
+import { BsFlagFill } from 'react-icons/bs';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
@@ -30,7 +32,7 @@ class Feedback extends Component {
       return <Redirect to="/ranking" />;
     }
 
-    const { score, assertions } = this.props;
+    const { score, assertions, numberOfQuestions } = this.props;
     const answerThreshold = 3;
     let feedbackMessage = 'Could be better...';
     if (assertions >= answerThreshold) {
@@ -41,31 +43,48 @@ class Feedback extends Component {
       <div className="feedback-container">
         <Header />
         <div className="feedback-content">
-          <p data-testid="feedback-text" className="feedback-message">
-            {feedbackMessage}
-          </p>
-          <p className="feedback-score">
-            {'Total de pontuação: '}
-            <span data-testid="feedback-total-score">{score}</span>
-          </p>
-          <p className="feedback-questions-answered">
-            {'Total de acertos: '}
-            <span data-testid="feedback-total-question">{assertions}</span>
-          </p>
-          <button
-            type="button"
-            data-testid="btn-ranking"
-            onClick={this.handleClick}
-          >
-            Ranking
-          </button>
-          <button
-            data-testid="btn-play-again"
-            type="button"
-            onClick={this.playAgain}
-          >
-            Play Again
-          </button>
+          <div className="feedback-card">
+            <div className="game-sidecard">
+              <div className="score-container">
+                <p className="sidecard-title">SCORE</p>
+                <div className="sidecard-icon">
+                  <BsFlagFill />
+                  <p>{`${score} points`}</p>
+                </div>
+              </div>
+              <div className="assertions-container">
+                <p className="sidecard-title">ASSERTIONS</p>
+                <div className="sidecard-icon">
+                  <BiCheck />
+                  <p>{`${assertions}/${numberOfQuestions}`}</p>
+                </div>
+              </div>
+            </div>
+            <div className="right-section-feedback">
+              <div className="feedback-image">
+                <img src={assertions >= 3 ? '/first.svg' : '/second.svg'} alt="winners" />
+              </div>
+              <h3 data-testid="feedback-text" className="feedback-message">
+                {feedbackMessage}
+              </h3>
+              <div className="feedback-buttons">
+                <button
+                  type="button"
+                  data-testid="btn-ranking"
+                  onClick={this.handleClick}
+                >
+                  Ranking
+                </button>
+                <button
+                  data-testid="btn-play-again"
+                  type="button"
+                  onClick={this.playAgain}
+                >
+                  Play Again
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -75,6 +94,7 @@ class Feedback extends Component {
 const mapStateToProps = (state) => ({
   score: state.player.score,
   assertions: state.player.assertions,
+  numberOfQuestions: state.setup.numberOfQuestions,
 });
 
 Feedback.propTypes = {
@@ -84,6 +104,7 @@ Feedback.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  numberOfQuestions: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);

@@ -17,4 +17,123 @@
 .feedback-content {
   width: 100%;
   height: calc(100% - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feedback-card {
+  width: 95%;
+  height: 90%;
+  background-color: var(--primary);
+  display: flex;
+  border-radius: 10px;
+  box-shadow: 0.5px 10px 15px rgb(0 0 0 / 20%);
+  max-width: 650px;
+  flex-direction: column;
+}
+
+.feedback-card .game-sidecard {
+  width: 100%;
+  height: 35%;
+  border-radius: 10px 10px 0 0;
+  box-shadow: unset;
+  flex-direction: column;
+}
+
+.feedback-card .game-sidecard .score-container, .feedback-card .game-sidecard .assertions-container {
+  width: 85%;
+  height: 45%;
+  letter-spacing: 2px;
+}
+
+.right-section-feedback {
+  background-color: var(--secondary);
+  width: 100%;
+  height: 65%;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.feedback-image {
+  width: 100%;
+  height: 60%;
+}
+
+.feedback-image img {
+  width: 100%;
+  height: 100%;
+}
+
+.right-section-feedback h3 {
+  color: var(--font-color);
+  font-size: 35px;
+  letter-spacing: 1px;
+}
+
+.feedback-buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.feedback-buttons button {
+  width: 30%;
+  height: 30px;
+  border-radius: 5px;
+  transition: all .5s ease;
+  color: black;
+  font-weight: 600;
+  background-color: #fff;
+  border: 1px solid var(--bg-color);
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.feedback-buttons button:hover {
+  background-color: var(--blue-bd);
+  color: var(--font-color);
+  border: 1px solid var(--blue-bd);
+}
+
+@media screen and (min-width: 1200px) {
+  .feedback-card {
+    width: 60%;
+    height: 80%;
+    max-width: 1290px;
+    flex-direction: row;
+  }
+
+  .feedback-card .game-sidecard {
+    width: 35%;
+    height: 100%;
+    border-radius: 10px 0 0 10px;
+    box-shadow: unset;
+    flex-direction: column;
+  }
+  
+  .right-section-feedback {
+    background-color: var(--secondary);
+    width: 65%;
+    height: 100%;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .feedback-card .game-sidecard .score-container, .feedback-card .game-sidecard .assertions-container {
+    width: 90%;
+    height: 25%;
+  }
+
+  .feedback-buttons button {
+    width: 120px;
+    height: 35px;
+  }
 }

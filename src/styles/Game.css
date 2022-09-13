@@ -26,7 +26,7 @@
 }
 
 .header-title h1 span {
-  color: var(--primary);
+  color: var(--logo)
 }
 
 .header-title h1::after {
@@ -34,7 +34,7 @@
   width: 100%;
   height: 3px;
   display: block;
-  background-color: var(--primary);
+  background-color: var(--logo);
 }
 
 .header-userinfo {
@@ -205,12 +205,24 @@
 .footer-card {
   width: 100%;
   height: 20%;
-  border-top: 10px solid var(--secondary);
   border-radius: 0 0 10px 10px;
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
+
+.progress-bar {
+  width: 100%;
+  height: 15px;
+  background-color: var(--secondary);
+}
+
+.percentage {
+  background-color: green;
+  height: 15px;
+  transition: 30s linear(1, -0.5, 0);
+}
+
 
 .timer-container {
   height: 100%;

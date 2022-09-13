@@ -211,7 +211,7 @@ class Game extends Component {
   render() {
     const { isRedirect, trivia } = this.state;
     const {
-      wasAnswered, endOfTime, score, assertions, numberOfQuestions,
+      wasAnswered, endOfTime, score, assertions, numberOfQuestions, timeLeft,
     } = this.props;
     if (isRedirect) {
       return <Redirect to="/" />;
@@ -226,6 +226,9 @@ class Game extends Component {
                 {this.renderQuestions()}
               </div>
             )}
+            <div className="progress-bar">
+              <div className="percentage" style={{ height: '15px', width: `${timeLeft * (10 / 3)}%` }} />
+            </div>
             <div className="footer-card">
               <Timer />
               {(wasAnswered || endOfTime) && (
