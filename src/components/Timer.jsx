@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { BsClockHistory } from 'react-icons/bs';
 import { connect } from 'react-redux';
 import { endTime, resetTimerAction, stopWatch } from '../redux/actions';
 
@@ -41,7 +42,10 @@ class Timer extends Component {
   render() {
     const { timeLeft } = this.props;
     return (
-      <div>{timeLeft}</div>
+      <div className="timer-container">
+        <BsClockHistory />
+        <p>{`${timeLeft} s`}</p>
+      </div>
     );
   }
 }

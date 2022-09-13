@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import { resetGame } from '../redux/actions';
+import '../styles/Feedback.css';
 
 class Feedback extends Component {
   constructor() {
@@ -37,9 +38,9 @@ class Feedback extends Component {
     }
 
     return (
-      <>
+      <div className="feedback-container">
         <Header />
-        <div className="feedback-container">
+        <div className="feedback-content">
           <p data-testid="feedback-text" className="feedback-message">
             {feedbackMessage}
           </p>
@@ -66,7 +67,7 @@ class Feedback extends Component {
             Play Again
           </button>
         </div>
-      </>
+      </div>
     );
   }
 }

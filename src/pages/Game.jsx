@@ -2,6 +2,8 @@
 /* eslint-disable class-methods-use-this */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { BiCheck } from 'react-icons/bi';
+import { BsFlagFill } from 'react-icons/bs';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
@@ -131,12 +133,12 @@ class Game extends Component {
             >
               {this.decodeEntity(category)}
             </h3>
-            <p
+            <h4
               data-testid="question-text"
               className="trivia-question"
             >
               {this.decodeEntity(question)}
-            </p>
+            </h4>
           </div>
           <div className="options-container">
             {toRender.map((element, index) => {
@@ -207,9 +209,9 @@ class Game extends Component {
   };
 
   render() {
-    const { isRedirect, trivia, triviaIndex } = this.state;
+    const { isRedirect, trivia } = this.state;
     const {
-      wasAnswered, endOfTime, score, numberOfQuestions, assertions,
+      wasAnswered, endOfTime, score, assertions, numberOfQuestions,
     } = this.props;
     if (isRedirect) {
       return <Redirect to="/" />;
@@ -224,7 +226,8 @@ class Game extends Component {
                 {this.renderQuestions()}
               </div>
             )}
-            <div>
+            <div className="footer-card">
+              <Timer />
               {(wasAnswered || endOfTime) && (
               <button
                 type="button"
@@ -235,11 +238,22 @@ class Game extends Component {
               </button>
               )}
             </div>
-            <Timer />
           </div>
           <div className="game-sidecard">
-            <p>{`Score: ${score}`}</p>
-            <p>{`Assertions: ${assertions}`}</p>
+            <div className="score-container">
+              <p className="sidecard-title">SCORE</p>
+              <div className="sidecard-icon">
+                <BsFlagFill />
+                <p>{`${score} points`}</p>
+              </div>
+            </div>
+            <div className="assertions-container">
+              <p className="sidecard-title">ASSERTIONS</p>
+              <div className="sidecard-icon">
+                <BiCheck />
+                <p>{`${assertions}/${numberOfQuestions}`}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
