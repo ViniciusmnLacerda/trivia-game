@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable default-param-last */
 import {
   LOGIN, RESET_GAME, SET_IMAGE, TOTAL_ASSERTIONS, TOTAL_SCORE
