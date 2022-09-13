@@ -18,6 +18,6 @@ Users should be able to:
 - [Live project](https://viniciuslacerda-trivia-game.vercel.app/)
 
 ### Screenshots
-<img src="rdm1.png" alt="game's page" width="600"/>
-<img src="rdm2.png" alt="feedback" width="600"/>
-<img src="rdm3.png" alt="ranking" width="600"/>
+<img src="rmd1.png" alt="game's page" width="600"/>
+<img src="rmd2.png" alt="feedback" width="600"/>
+<img src="rmd3.png" alt="ranking" width="600"/>
