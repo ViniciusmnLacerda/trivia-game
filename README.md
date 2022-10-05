@@ -21,3 +21,9 @@ Users should be able to:
 <img src="rmd1.png" alt="game's page" width="600"/>
 <img src="rmd2.png" alt="feedback" width="600"/>
 <img src="rmd3.png" alt="ranking" width="600"/>
+
+### Local usage
+- Clone this repo;
+- Access the local repository folder;
+- run $ npm install 
+- run $ npm start
