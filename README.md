@@ -23,7 +23,7 @@ Users should be able to:
 <img src="rmd3.png" alt="ranking" width="600"/>
 
 ### Local usage
-- Clone this repo;
+- Clone this repository;
 - Access the local repository folder;
 - run $ npm install 
 - run $ npm start
